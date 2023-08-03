@@ -1,89 +1,93 @@
-{% extends "main.j2"%} 
-    {% block title %}Campaigns{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Campaigns{% endblock %}
 
 {% block content %}
 <h1 class="center-align">Campaigns</h1>
 
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCampaignModal">Add
-        Campaign</button>
-    <div id="addCampaignModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add Campaign</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <form action = "/campaigns" method="POST" id="insert">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCampaignModal">Add
+    Campaign</button>
+<div id="addCampaignModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Campaign</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/campaigns" method="POST" id="insert">
                     <label for="ChannelSelect">Select a Channel</label>
-                    <input type="number" name="chidinput_dd" required class="form-control" id="ChannelSelect" placeholder="Channel">
+                    <input type="number" name="chidinput_dd" required class="form-control" id="ChannelSelect"
+                        placeholder="Channel">
                     <label for="StartDate">Select a Start Date</label>
-                    <input type="date" name = "chstartinput" required class="form-control" id="StartDate">
+                    <input type="date" name="chstartinput" required class="form-control" id="StartDate">
                     <label for="EndDate">Select a End Date</label>
-                    <input type="date" name = "chendinput" required class="form-control" id="EndDate">
+                    <input type="date" name="chendinput" required class="form-control" id="EndDate">
                     <label for="Product">Select a Product</label>
-                    <input type="number" name = "pidinput_dd" required class="form-control" id="ChannelSelect" placeholder="Product">
+                    <input type="number" name="pidinput_dd" required class="form-control" id="ChannelSelect"
+                        placeholder="Product">
                 </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" form="insert" value = "insert" class="btn btn-primary"> Add Campaign</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary"> Add Campaign</button>
+            </div>
 
+        </div>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>Campaign ID</th>
+        <th>Channel ID</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Product ID</th>
+        <th>Cost</th>
+        <th>Update</th>
+        <th>Delete</th>
+    </tr>
+    {% for campaign in campaigns %}
+    <tr>
+        {% for key in campaign.keys() %}
+        <td>{{campaign[key]}}</td>
+        {% endfor %}
+
+        <td><button href="/delete_campaign/{{campaign.campaignID}}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Update</button>
+        </td>
+
+        <td><a href="/delete_campaign/{{campaign.campaignID}}" class="btn btn-primary">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<div id="updateModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Update Campaign</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/updateCampaigns/<int:campaignID>" method="POST" id="update">
+                    <label for="ChannelSelect">Select a Channel</label>
+                    <input type="number" name="chidinput_dd" class="form-control" id="ChannelSelect"
+                        placeholder="Channel">
+                    <label for="StartDate">Select a Start Date</label>
+                    <input type="date" name="chstartinput" class="form-control" id="StartDate">
+                    <label for="EndDate">Select a End Date</label>
+                    <input type="date" name="chendinput" class="form-control" id="EndDate">
+                    <label for="Product">Select a Product</label>
+                    <input type="number" name="pidinput_dd" class="form-control" id="ChannelSelect"
+                        placeholder="Product">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="update" value="update" class="btn btn-primary">Update Campaign</input>
             </div>
         </div>
     </div>
-    <table class="table">
-        <tr>
-            <th>Campaign ID</th>
-            <th>Channel ID</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Product ID</th>
-            <th>Cost</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        {% for campaign in campaigns %}
-            <tr>
-                {% for key in campaign.keys() %}
-                <td>{{campaign[key]}}</td>
-                {% endfor %}
-            
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#updateModal">Update</button></td>
-                    
-                <td><a href="/delete_campaign/{{campaign.campaignID}}" class="btn btn-primary">Delete</a></td>
-            </tr>
-        {% endfor %}
-    </table>
-    <div id="updateModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Update Campaign</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                <form action = "/updateCampaigns" method="GET" id="update">
-                    <label for="ChannelSelect" >Select a Channel</label>
-                    <input type="number" name="chidinput_dd" class="form-control" id="ChannelSelect" placeholder="Channel">
-                    <label for="StartDate">Select a Start Date</label>
-                    <input type="date" name = "chstartinput" class="form-control" id="StartDate">
-                    <label for="EndDate" >Select a End Date</label>
-                    <input type="date" name = "chendinput"class="form-control" id="EndDate">
-                    <label for="Product" >Select a Product</label>
-                    <input type="number" name = "pidinput_dd" class="form-control" id="ChannelSelect" placeholder="Product">
-                </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" form="update" value = "update" class="btn btn-primary">Update Campaign</input>
-                </div>
-            </div>
-        </div>
-        {% endblock %}
+    {% endblock %}

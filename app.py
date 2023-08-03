@@ -137,6 +137,12 @@ def delete_campaign(campaignID):
     query = "DELETE FROM Campaigns WHERE campaignID = %s;"
     db.execute_query(db_connection=db_connection, query=query, query_params=(campaignID,))
     return redirect("/campaigns")
+
+@app.route("/updateCampaign/<int:campaignID>")
+def updateCapaign(campaignID):
+    query = "SELECT campaignID FROM Campaigns WHERE campaignID=%s;"
+    cur = db.execute_query(db_connection=db_connection, query=query, query_params=(campaignID,))
+    data = cur.fetchall()
 # Listener
 
 
