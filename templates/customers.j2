@@ -48,7 +48,7 @@
                 {% endfor %}
                 <td><button type="button" class="btn btn-primary" data-toggle="modal"
                     data-target="#UpdateCustomerModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
+                <td><a href = "deleteCustomer/{{customer[customerID]}}" class = "btn btn-default">Delete</a></td>
             </tr>
             {% endfor %}
         </tbody>

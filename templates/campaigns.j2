@@ -16,18 +16,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                <form action = "/campaigns" method="POST" id="insert">
                     <label for="ChannelSelect">Select a Channel</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
+                    <input type="number" name="chidinput_dd" required class="form-control" id="ChannelSelect" placeholder="Channel">
                     <label for="StartDate">Select a Start Date</label>
-                    <input type="date" class="form-control" id="StartDate">
+                    <input type="date" name = "chstartinput" required class="form-control" id="StartDate">
                     <label for="EndDate">Select a End Date</label>
-                    <input type="date" class="form-control" id="EndDate">
+                    <input type="date" name = "chendinput" required class="form-control" id="EndDate">
                     <label for="Product">Select a Product</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Product">
+                    <input type="number" name = "pidinput_dd" required class="form-control" id="ChannelSelect" placeholder="Product">
+                </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary"> Add Campaign</button>
+                    <button type="submit" form="insert" value = "insert" class="btn btn-primary"> Add Campaign</button>
                 </div>
 
             </div>
@@ -52,7 +54,8 @@
             
                 <td><button type="button" class="btn btn-primary" data-toggle="modal"
                     data-target="#updateModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
+                    
+                <td><a href="/delete_campaign/{{campaign.campaignID}}" class="btn btn-primary">Delete</a></td>
             </tr>
         {% endfor %}
     </table>
@@ -66,18 +69,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <label for="ChannelSelect">Select a Channel</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
+                <form action = "/updateCampaigns" method="GET" id="update">
+                    <label for="ChannelSelect" >Select a Channel</label>
+                    <input type="number" name="chidinput_dd" class="form-control" id="ChannelSelect" placeholder="Channel">
                     <label for="StartDate">Select a Start Date</label>
-                    <input type="date" class="form-control" id="StartDate">
-                    <label for="EndDate">Select a End Date</label>
-                    <input type="date" class="form-control" id="EndDate">
-                    <label for="Product">Select a Product</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Product">
+                    <input type="date" name = "chstartinput" class="form-control" id="StartDate">
+                    <label for="EndDate" >Select a End Date</label>
+                    <input type="date" name = "chendinput"class="form-control" id="EndDate">
+                    <label for="Product" >Select a Product</label>
+                    <input type="number" name = "pidinput_dd" class="form-control" id="ChannelSelect" placeholder="Product">
+                </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Campaign</button>
+                    <button type="submit" form="update" value = "update" class="btn btn-primary">Update Campaign</input>
                 </div>
             </div>
         </div>
