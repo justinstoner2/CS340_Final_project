@@ -54,7 +54,7 @@
         <td>{{campaign[key]}}</td>
         {% endfor %}
 
-        <td><button href="/delete_campaign/{{campaign.campaignID}}" type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateModal">Update</button>
+        <td><a href="/update_campaign/{{campaign.campaignID}}" class="btn btn-primary">Update</a>
         </td>
 
         <td><a href="/delete_campaign/{{campaign.campaignID}}" class="btn btn-primary">Delete</a></td>

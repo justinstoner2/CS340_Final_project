@@ -1,0 +1,40 @@
+{% extends "main.j2"%}
+{% block title %}Update Campaign{% endblock %}
+
+{% block content %}
+<form action="/update_campaign/{{data[0].campaignID}}" method="POST" id="update">
+    <label for="ChannelSelect">Select a Channel</label>
+    <select class="form-control" id="chidinput_dd" name="chidinput_dd">
+        <option value="">&nbsp;</option>
+        {% for channel in channels %}
+        {% if channel['channelID']== channels[0].channel%}
+        <option value="{{channel['channelID']}}" selected>{{channel['channelName']}} </option>
+        {% else %}
+        <option value="{{channel['channelID']}}">{{channel['channelName']}}</option>
+        {% endif %}
+
+        {% endfor %}
+    </select><br>
+
+    <label for="StartDate">Select a Start Date</label>
+    <input type="date" name="chstartinput" class="form-control" id="StartDate">
+    <label for="EndDate">Select a End Date</label>
+    <input type="date" name="chendinput" class="form-control" id="EndDate">
+    <label for="ProductSelect">Select a Product</label>
+    <select class="form-control" id="pidinput_dd" name="pidinput_dd">
+
+        <option value="">&nbsp;</option>
+        {% for product in products %}
+        {% if product['productID']== products[0].product%}
+        <option value="{{product['productID']}}" selected>{{product['productName']}} </option>
+        {% else %}
+        <option value="{{product['productID']}}">{{product['productName']}}</option>
+        {% endif %}
+
+        {% endfor %}
+    </select><br>
+
+    <input type="submit" value="updateCampaign" name="UpdateCampaign" class="btn btn-primary">
+    <a href='/campaigns'><input class="btn" type="button" value="cancel"></a>
+</form>
+{% endblock %}
