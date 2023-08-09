@@ -1,71 +1,70 @@
-{% extends "main.j2"%} 
-    {% block title %}Products{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Products{% endblock %}
 
 {% block content %}
 <h1 class="center-align">Products</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddProductModal">Add
-        Product</button>
-    <div id="AddProductModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add a New Product </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddProductModal">Add
+    Product</button>
+<div id="AddProductModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add a New Product </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/products" method="POST" id="insert">
                     <label for="ProductName">Enter a Product Name</label>
-                    <input type="text" class="form-control" id="ProductName" placeholder="Product">
+                    <input name="pnameinput" type="text" class="form-control" id="ProductName" placeholder="Product">
                     <label for="Price">Enter a Price</label>
-                    <input type="number" class="form-control" id="Price">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Product</button>
-                </div>
+                    <input name="ppriceinput" type="number" class="form-control" id="Price">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary">Add Product</button>
             </div>
         </div>
     </div>
-    <table class="table">
-        <tr>
-            <th>Products ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        {% for product in products %}
-            <tr>
-                {% for key in product.keys() %}
-                <td>{{product[key]}}</td>
-                {% endfor %}
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#UpdateProductModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
-            </tr>
-            {% endfor %}
-    </table>
-    <div id="UpdateProductModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Update Product Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="ProductName">Enter a Product Name</label>
-                    <input type="text" class="form-control" id="ProductName" placeholder="Product">
-                    <label for="Price">Enter a Price</label>
-                    <input type="number" class="form-control" id="Price">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Product</button>
-                </div>
+</div>
+<table class="table">
+    <tr>
+        <th>Products ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Delete</th>
+    </tr>
+    {% for product in products %}
+    <tr>
+        {% for key in product.keys() %}
+        <td>{{product[key]}}</td>
+        {% endfor %}
+        <td><a href="/delete_product/{{product.productID}}" class="btn btn-primary">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<div id="UpdateProductModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Update Product Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="ProductName">Enter a Product Name</label>
+                <input type="text" class="form-control" id="ProductName" placeholder="Product">
+                <label for="Price">Enter a Price</label>
+                <input type="number" class="form-control" id="Price">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update Product</button>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

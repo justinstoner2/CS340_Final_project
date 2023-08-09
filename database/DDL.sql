@@ -33,20 +33,19 @@ CREATE TABLE `Campaigns` (
   `campaignID` int(11) NOT NULL,
   `channelID` int(11),
   `startDate` date NOT NULL,
-  `endDate` date NOT NULL,
-  `productID` int(11),
-  `cost` decimal(19,2) DEFAULT NULL
+  `endDate` date,
+  `productID` int(11)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `Campaigns`
 --
 
-INSERT INTO `Campaigns` (`campaignID`, `channelID`, `startDate`, `endDate`, `productID`, `Cost`) VALUES
-(1, 1, '2023-05-15', '2023-06-30', 2, 5000.00),
-(2, 1, '2023-06-01', '2023-06-15', 3, 15000.00),
-(3, 2, '2023-02-01', '2023-02-28', 1, 5000.00),
-(4, 2, '2023-04-15', '2023-04-15', 3, 2500.00);
+INSERT INTO `Campaigns` (`campaignID`, `channelID`, `startDate`, `endDate`, `productID`) VALUES
+(1, 1, '2023-05-15', '2023-06-30', 2),
+(2, 1, '2023-06-01', '2023-06-15', 3),
+(3, 2, '2023-02-01', '2023-02-28', 1),
+(4, 2, '2023-04-15', '2023-04-15', 3);
 
 -- --------------------------------------------------------
 
@@ -79,19 +78,17 @@ INSERT INTO `Channels` (`channelID`, `channelName`, `channelEmail`, `rate`) VALU
 CREATE TABLE `Customers` (
   `customerID` int(11) NOT NULL,
   `customerName` varchar(50) NOT NULL,
-  `customerEmail` varchar(50) NOT NULL,
-  `totalRevenue` decimal(19,2) DEFAULT NULL,
-  `salesCount` int(11) DEFAULT NULL
+  `customerEmail` varchar(50)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `Customers`
 --
 
-INSERT INTO `Customers` (`customerID`, `customerName`, `customerEmail`, `totalRevenue`, `salesCount`) VALUES
-(1, 'Bill', 'bill@gmail.com', 100.00, 2),
-(2, 'Dale', 'dale@yahoo.com.', 500000.00, 250),
-(3, 'Hank', 'hank@outlook.com', 0.00, 0);
+INSERT INTO `Customers` (`customerID`, `customerName`, `customerEmail`) VALUES
+(1, 'Bill', 'bill@gmail.com'),
+(2, 'Dale', 'dale@yahoo.com'),
+(3, 'Hank', 'hank@outlook.com');
 
 -- --------------------------------------------------------
 
@@ -103,20 +100,19 @@ CREATE TABLE `Inventory` (
   `inventoryID` int(11) NOT NULL,
   `productID` int(11),
   `dateAdded` date NOT NULL,
-  `quantity` int(11) DEFAULT NULL,
-  `totalValue` decimal(19,2) DEFAULT NULL
+  `quantity` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `Inventory`
 --
 
-INSERT INTO `Inventory` (`inventoryID`, `productID`, `dateAdded`, `quantity`, `totalValue`) VALUES
-(1, 1, '2023-07-10', 500, 10000.00),
-(2, 1, '2023-07-16', 750, 15000.00),
-(3, 2, '2023-05-10', 200, 20000.00),
-(4, 2, '2023-06-05', 400, 40000.00),
-(5, 3, '2023-07-01', 300, 12000.00);
+INSERT INTO `Inventory` (`inventoryID`, `productID`, `dateAdded`, `quantity`) VALUES
+(1, 1, '2023-07-10', 500),
+(2, 1, '2023-07-16', 750),
+(3, 2, '2023-05-10', 200),
+(4, 2, '2023-06-05', 400),
+(5, 3, '2023-07-01', 300);
 
 -- --------------------------------------------------------
 
@@ -149,19 +145,18 @@ CREATE TABLE `SaleItems` (
   `saleItemID` int(11) NOT NULL,
   `saleID` int(11),
   `productID` int(11),
-  `quantity` int(11) NOT NULL,
-  `totalLineItemCost` decimal(19,2) DEFAULT NULL
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `SaleItems`
 --
 
-INSERT INTO `SaleItems` (`saleItemID`, `saleID`, `productID`, `quantity`, `totalLineItemCost`) VALUES
-(1, 1, 2, 50, 5000.00),
-(2, 1, 1, 250, 5000.00),
-(3, 2, 2, 600, 60000.00),
-(4, 3, 3, 1000, 40000.00);
+INSERT INTO `SaleItems` (`saleItemID`, `saleID`, `productID`, `quantity`) VALUES
+(1, 1, 2, 50),
+(2, 1, 1, 250),
+(3, 2, 2, 600),
+(4, 3, 3, 1000);
 
 -- --------------------------------------------------------
 
@@ -172,19 +167,18 @@ INSERT INTO `SaleItems` (`saleItemID`, `saleID`, `productID`, `quantity`, `total
 CREATE TABLE `Sales` (
   `saleID` int(11) NOT NULL,
   `customerID` int(11),
-  `saleDate` date NOT NULL,
-  `totalSaleValue` decimal(19,2) DEFAULT NULL
+  `saleDate` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
 
 --
 -- Dumping data for table `Sales`
 --
 
-INSERT INTO `Sales` (`saleID`, `customerID`, `saleDate`, `totalSaleValue`) VALUES
-(1, 1, '2023-05-15', 10000.00),
-(2, 1, '2023-06-01', 15000.00),
-(3, 2, '2023-02-10', 20000.00),
-(4, 2, '2023-04-05', 40000.00);
+INSERT INTO `Sales` (`saleID`, `customerID`, `saleDate`) VALUES
+(1, 1, '2023-05-15'),
+(2, 1, '2023-06-01'),
+(3, 2, '2023-02-10'),
+(4, 2, '2023-04-05');
 
 --
 -- Indexes for dumped tables

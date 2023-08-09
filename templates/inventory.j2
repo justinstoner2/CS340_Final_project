@@ -1,77 +1,89 @@
-{% extends "main.j2"%} 
-    {% block title %}Inventory{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Inventory{% endblock %}
 
 {% block content %}
 <h1 class="center-align">Inventory</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddInventoryModal">Add to
-        Inventory</button>
-    <div id="AddInventoryModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add Product to Inventory</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="ChannelSelect">Select a Product</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Product">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddInventoryModal">Add to
+    Inventory</button>
+<div id="AddInventoryModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Product to Inventory</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/inventory" method="POST" id="insert">
+                    <label for="ipinput">Select a Product</label>
+                    <select name="ipinput" id="ipinput" required>
+                        <option value="">&nbsp;</option>
+                        {% for product in products %}
+                        {% if product['productID']== products[0].product%}
+                        <option value="{{product['productID']}}" selected>{{product['productName']}} </option>
+                        {% else %}
+                        <option value="{{product['productID']}}">{{product['productName']}}</option>
+                        {% endif %}
+
+                        {% endfor %}
+                    </select><br>
                     <label for="dateAdded">Date</label>
-                    <input type="date" class="form-control" id="dateAdded">
+                    <input name="idainput" type="date" class="form-control" id="dateAdded" required>
                     <label for="Quantity">Enter a Quantity</label>
-                    <input type="number" class="form-control" id="Quantity">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Product to Inventory</button>
-                </div>
+                    <input name="iqinput" type="number" class="form-control" id="Quantity" required>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary">Add Product to
+                    Inventory</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<table class="table">
+    <tr>
+        <th>Inventory ID</th>
+        <th>Product ID</th>
+        <th>Date Added</th>
+        <th>Quantity</th>
+        <th>Total Sales value</th>
+        <th>Delete</th>
+    </tr>
+    {% for item in inventory %}
+    <tr>
+        {% for key in item.keys() %}
+        <td>{{item[key]}}</td>
+        {% endfor %}
+        <td><a href="/delete_inventory/{{item.inventoryID}}" class="btn btn-secondary">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<div id="UpdateInventoryModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Update Product in Inventory</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="ChannelSelect">Select a Product</label>
+                <input type="text" class="form-control" id="ChannelSelect" placeholder="Product">
+                <label for="dateAdded">Date</label>
+                <input type="date" class="form-control" id="dateAdded">
+                <label for="Quantity">Enter a Quantity</label>
+                <input type="number" class="form-control" id="Quantity">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update product in Inventory</button>
             </div>
         </div>
     </div>
-    <table class="table">
-        <tr>
-            <th>Inventory ID</th>
-            <th>Product ID</th>
-            <th>Date Added</th>
-            <th>Quantity</th>
-            <th>Total Sales value</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        {% for item in inventory %}
-            <tr>
-                {% for key in item.keys() %}
-                <td>{{item[key]}}</td>
-                {% endfor %}
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#UpdateInventoryModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
-            </tr>
-            {% endfor %}
-    </table>
-    <div id="UpdateInventoryModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Update Product in Inventory</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="ChannelSelect">Select a Product</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Product">
-                    <label for="dateAdded">Date</label>
-                    <input type="date" class="form-control" id="dateAdded">
-                    <label for="Quantity">Enter a Quantity</label>
-                    <input type="number" class="form-control" id="Quantity">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update product in Inventory</button>
-                </div>
-            </div>
-        </div>
-    </div>
+</div>
 {% endblock %}

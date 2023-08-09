@@ -1,53 +1,65 @@
-{% extends "main.j2"%} 
-    {% block title %}Sales Items{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Sales Items{% endblock %}
 
 {% block content %}
 <h1 class="center-align">Sale Items</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSaleItemModal">Add Sale
-        Item</button>
-    <div id="AddSaleItemModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add a Sale Item </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="SaleID">Select a Sale ID</label>
-                    <select id="SaleID">
-                        <option value="0">Default</option>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSaleItemModal">Add Sale
+    Item</button>
+<div id="AddSaleItemModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add a Sale Item </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/saleItems" method="POST" id="insert">
+                    <label for="SaleID">Select a Sale</label>
+                    <select name="saidinput_dd" id="SaleID">
+                        <option value="">&nbsp;</option>
+                        {% for sale in sales %}
+                        <option value="{{sale['saleID']}}">{{sale['SaleName']}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="SaleID">Select a Product</label>
+                    <select name="pidinput_dd" id="pidinput_dd">
+                        <option value="">&nbsp;</option>
+                        {% for product in products %}
+                        {% if product['productID']== products[0].product%}
+                        <option value="{{product['productID']}}" selected>{{product['productName']}} </option>
+                        {% else %}
+                        <option value="{{product['productID']}}">{{product['productName']}}</option>
+                        {% endif %}
+
+                        {% endfor %}
                     </select><br>
-                    <label for="Price">Enter a Price</label>
-                    <input type="number" class="form-control" id="Price">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Sale Item</button>
-                </div>
+                    <label for="quantity">Enter a quantity</label>
+                    <input name="siqtyinput" type="number" class="form-control" id="Price">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary">Add Sale Item</button>
             </div>
         </div>
     </div>
-    <table class="table">
-        <tr>
-            <th>Sale Item ID</th>
-            <th>Sale ID</th>
-            <th>Product ID</th>
-            <th>Quantity</th>
-            <th>Line Item Revenue</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        {% for item in saleItems %}
-            <tr>
-                {% for key in item.keys() %}
-                <td>{{item[key]}}</td>
-                {% endfor %}
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#UpdateProductModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
-            </tr>
-            {% endfor %}
-    </table>
+</div>
+<table class="table">
+    <tr>
+        <th>Sale Item ID</th>
+        <th>Sale ID</th>
+        <th>Product ID</th>
+        <th>Quantity</th>
+        <th>Line Item Revenue</th>
+    </tr>
+    {% for item in saleItems %}
+    <tr>
+        {% for key in item.keys() %}
+        <td>{{item[key]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}

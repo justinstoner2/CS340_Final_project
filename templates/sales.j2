@@ -1,80 +1,80 @@
-{% extends "main.j2"%} 
-    {% block title %}Sales{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Sales{% endblock %}
 
 {% block content %}
 <h1 class="center-align">Sales</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSaleModal">Add Sale</button>
-    <div id="AddSaleModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add Sale Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddSaleModal">Add Sale</button>
+<div id="AddSaleModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Sale Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/sales" method="POST" id="insert">
                     <label for="customer">Select a Customer</label>
-                    <select id="customer" class="form-select">
-                        <option value="1">Jo</option>
-                        <option value="2">Bo</option>
-                        <option value="3">Bill</option>
+                    <select name="scustomerID_input" id="customer" class="form-select">
+                        <option value="">&nbsp;</option>
+                        {% for customer in customers %}
+                        <option value="{{customer['customerID']}}">{{customer['customerName']}}</option>
+                        {% endfor %}
                     </select>
                     <br>
                     <label for="saleDate">Enter Date of Sale</label>
-                    <input type="date" class="form-control" id="saleDate">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Product</button>
-                </div>
+                    <input name="ssalesDate_input" type="date" class="form-control" id="saleDate">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary">Add Product</button>
             </div>
         </div>
     </div>
-    <table class="table">
-        <tr>
-            <th>Customer ID</th>
-            <th>Sale Date</th>
-            <th>Total Sale Value</th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-        {% for sale in sales %}
-            <tr>
-                {% for key in sale.keys() %}
-                <td>{{sale[key]}}</td>
-                {% endfor %}
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#UpdateSaleModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
-            </tr>
-            {% endfor %}
-    </table>
-    <div id="UpdateSaleModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Update Sale Info</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="customer">Select a Customer</label>
-                    <select id="customer" class="form-select">
-                        <option value="1">Jo</option>
-                        <option value="2">Bo</option>
-                        <option value="3">Bill</option>
-                    </select>
-                    <br>
-                    <label for="saleDate">Enter Date of Sale</label>
-                    <input type="date" class="form-control" id="saleDate">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Product</button>
-                </div>
+</div>
+<table class="table">
+    <tr>
+        <th>Sale ID</th>
+        <th>Customer ID</th>
+        <th>Sale Date</th>
+        <th>Total Sale Value</th>
+
+    </tr>
+    {% for sale in sales %}
+    <tr>
+        {% for key in sale.keys() %}
+        <td>{{sale[key]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<div id="UpdateSaleModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Update Sale Info</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="customer">Select a Customer</label>
+                <select id="customer" class="form-select">
+                    <option value="1">Jo</option>
+                    <option value="2">Bo</option>
+                    <option value="3">Bill</option>
+                </select>
+                <br>
+                <label for="saleDate">Enter Date of Sale</label>
+                <input type="date" class="form-control" id="saleDate">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update Product</button>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}

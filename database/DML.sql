@@ -171,10 +171,10 @@ SELECT DISTINCT customerName, customerID
 FROM Customers;
 
 -- Get an aggregate value to represent each sale via the customer name, sale date, and total sale value. 
-SELECT CONCAT(customerName, ' ', saleDate, ' ', totalSaleValue), saleID
+SELECT CONCAT(customerName, ' ', saleDate, ' ') as salesName, saleID
 FROM Sales as t1
 JOIN Customers as t2
-WHERE t1.customerID = t2.customerID
+WHERE t1.customerID = t2.customerID;
 
 
 

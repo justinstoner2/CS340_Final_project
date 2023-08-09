@@ -1,78 +1,77 @@
-{% extends "main.j2"%} 
-    {% block title %}Channels{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Channels{% endblock %}
 
 {% block content %}
 
- <h1 class="center-align">Channels</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddChannelModal">Add
-        Channel</button>
-    <div id="AddChannelModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add Channel</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+<h1 class="center-align">Channels</h1>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddChannelModal">Add
+    Channel</button>
+<div id="AddChannelModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Channel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/channels" method="POST" id="insert">
                     <label for="ChannelSelect">Channel Name</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
+                    <input type="text" name="chnameinput" class="form-control" id="ChannelSelect" placeholder="Channel">
                     <label for="email">Channel Name</label>
-                    <input type="email" class="form-control" id="email" placeholder="Emial@Email.com">
-                    <label for="DailyRate">Select a Start Date</label>
-                    <input type="number" class="form-control" id="DailyRate">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Channel</button>
-                </div>
+                    <input type="email" name="chemailinput" class="form-control" id="email"
+                        placeholder="Emial@Email.com">
+                    <label for="DailyRate">Enter chanel's Daily Rate:</label>
+                    <input type="number" name="chrateinput" class="form-control" id="DailyRate">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary">Add Channel</button>
             </div>
         </div>
     </div>
-    <table class="table">
-        <tr>
-            <th>Channel ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Daily Rate</th>
-            <th></th>
-            <th></th>
-        </tr>
-        {% for channel in channels %}
-            <tr>
-                {% for key in channel.keys() %}
-                <td>{{channel[key]}}</td>
-                {% endfor %}
-            
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#UpdateChannelModal">Update</button></td>
-                <td><button type="button" class="btn btn-secondary">Delete</button></td>
-            </tr>
+</div>
+<table class="table">
+    <tr>
+        <th>Channel ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Daily Rate</th>
+        <th></th>
+    </tr>
+    {% for channel in channels %}
+    <tr>
+        {% for key in channel.keys() %}
+        <td>{{channel[key]}}</td>
         {% endfor %}
-    </table>
-    <div id="UpdateChannelModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add Channel</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="ChannelSelect">Channel Name</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
-                    <label for="email">Channel Name</label>
-                    <input type="email" class="form-control" id="email" placeholder="Emial@Email.com">
-                    <label for="DailyRate">Select a Start Date</label>
-                    <input type="number" class="form-control" id="DailyRate">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Channel</button>
-                </div>
+        <td><a href="/delete_channel/{{channel.channelID}}" class="btn btn-secondary">Delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+<!--<div id="UpdateChannelModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Channel</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="ChannelSelect">Channel Name</label>
+                <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
+                <label for="email">Channel Name</label>
+                <input type="email" class="form-control" id="email" placeholder="Emial@Email.com">
+                <label for="DailyRate">Select a Start Date</label>
+                <input type="number" class="form-control" id="DailyRate">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update Channel</button>
             </div>
         </div>
     </div>
-    {% endblock %}
+</div>-->
+{% endblock %}

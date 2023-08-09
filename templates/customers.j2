@@ -1,34 +1,36 @@
-
-    {% extends "main.j2"%} 
-    {% block title %}Customers{% endblock %}
+{% extends "main.j2"%}
+{% block title %}Customers{% endblock %}
 
 {% block content %}
-    <h1 class="center-align">Customers</h1>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCustomerModal">Add
-        Customer</button>
-    <div id="AddCustomerModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Add Customer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+<h1 class="center-align">Customers</h1>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddCustomerModal">Add
+    Customer</button>
+<div id="AddCustomerModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Add Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/customers" method="POST" id="insert">
                     <label for="ChannelSelect">Customer Name</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
+                    <input name="cnameInput" type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
                     <label for="email">Channel Name</label>
-                    <input type="email" class="form-control" id="email" placeholder="Emial@Email.com">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Add Customer</button>
-                </div>
+                    <input name="cemailInput" type="email" class="form-control" id="email"
+                        placeholder="Emial@Email.com">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" form="insert" value="insert" class="btn btn-primary">Add Customer</button>
             </div>
         </div>
     </div>
-    <table class="table">
+</div>
+<table class="table">
     <thead>
         <tr>
             <th>Customer ID</th>
@@ -36,43 +38,38 @@
             <th>Email</th>
             <th>Total Revenue</th>
             <th>Sales Count</th>
-            <th>Update</th>
-            <th>Delete</th>
         </tr>
-        </thead>
-        <tbody>
-            {% for customer in customers %}
-            <tr>
-                {% for key in customer.keys() %}
-                <td>{{customer[key]}}</td>
-                {% endfor %}
-                <td><button type="button" class="btn btn-primary" data-toggle="modal"
-                    data-target="#UpdateCustomerModal">Update</button></td>
-                <td><a href = "deleteCustomer/{{customer[customerID]}}" class = "btn btn-default">Delete</a></td>
-            </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+            {% for key in customer.keys() %}
+            <td>{{customer[key]}}</td>
             {% endfor %}
-        </tbody>
-    </table>
-    <div id="UpdateCustomerModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5>Update Customer</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <label for="ChannelSelect">Customer Name</label>
-                    <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
-                    <label for="email">Channel Name</label>
-                    <input type="email" class="form-control" id="email" placeholder="Emial@Email.com">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Update Customer</button>
-                </div>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div id="UpdateCustomerModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Update Customer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="ChannelSelect">Customer Name</label>
+                <input type="text" class="form-control" id="ChannelSelect" placeholder="Channel">
+                <label for="email">Channel Name</label>
+                <input type="email" class="form-control" id="email" placeholder="Emial@Email.com">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Update Customer</button>
             </div>
         </div>
     </div>
+</div>
 {% endblock %}
